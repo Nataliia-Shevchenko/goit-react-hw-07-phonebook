@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormInput, FormButton } from './ContactForm.styled';
-import { contactsSelector } from 'redux/selectors';
-import { add } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
+// import { nanoid } from '@reduxjs/toolkit';
+import { selectContactsList } from 'redux/selectors';
+// import { add } from 'redux/contactsSlice';
 
 const ContactForm = () => {
-  const contacts = useSelector(contactsSelector);
+  const contacts = useSelector(selectContactsList);
 
   const dispatch = useDispatch();
 
@@ -12,18 +14,21 @@ const ContactForm = () => {
     e.preventDefault();
     const form = e.target;
     for (const contact of contacts) {
+      console.log(contacts)
       if (contact.name === form.elements.name.value) {
         window.alert(`${form.elements.name.value} is already in contacts`);
         return;
       }
     }
-    dispatch(add(form.elements.name.value, form.elements.number.value));
+    dispatch(addContact({name:form.elements.name.value, phone:form.elements.number.value}));
     form.reset();
   };
 
   return (
     <>
-      <Form onSubmit={handleFormSubmit}>
+      <Form 
+      onSubmit={handleFormSubmit}
+      >
         <label>
           Name
           <FormInput
