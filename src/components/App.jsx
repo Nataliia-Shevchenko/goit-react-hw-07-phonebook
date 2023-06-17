@@ -22,7 +22,7 @@ const App = () => {
       <ContactForm />
       <h2>Contacts</h2>
       <Filter />
-      {isLoading && !error && <b>Request in progress...</b> }
+      {isLoading && !error && <p><b>Request in progress...</b></p> }
       <ContactList />
     </>
   );
