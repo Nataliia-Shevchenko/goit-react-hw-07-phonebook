@@ -12,11 +12,10 @@ const ContactForm = () => {
   const handleFormSubmit = e => {
     e.preventDefault();
     const form = e.target;
-    for (const contact of contacts) {
-      if (contact.name === form.elements.name.value) {
-        window.alert(`${form.elements.name.value} is already in contacts`);
-        return;
-      }
+ 
+    if(contacts.find(contact => contact.name === form.elements.name.value)){
+      window.alert(`${form.elements.name.value} is already in contacts`);
+      return;
     }
     dispatch(
       addContact({
